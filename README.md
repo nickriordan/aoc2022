@@ -1,4 +1,3 @@
-# aoc2021
-Advent of code 2022
+# aoc2022 (Advent of code 2022)
 
-My Kotlin implementation
+My Kotlin implementation of the solutions
