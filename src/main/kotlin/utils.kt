@@ -1,5 +1,3 @@
-import kotlin.math.absoluteValue
-
 fun loadStrings(fileName: String): List<String> =
     object {}::class.java.getResourceAsStream(fileName)?.bufferedReader()?.readLines()
         ?: throw Exception("Failed to load file $fileName")
@@ -7,6 +5,10 @@ fun loadStrings(fileName: String): List<String> =
 fun loadInts(fileName: String) = loadStrings(fileName).map(String::toInt)
 
 fun loadSingleLineInts(fileName: String) = loadStrings(fileName).first().split(",").map(String::toInt)
+
+fun loadAsSingleString(fileName: String) =
+    object {}::class.java.getResourceAsStream(fileName)?.bufferedReader()?.readText()
+        ?: throw Exception("Failed to load file $fileName")
 
 data class Point(val x: Int, val y: Int) {
     fun north() = Point(x, y - 1)
