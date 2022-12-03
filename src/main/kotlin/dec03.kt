@@ -1,16 +1,14 @@
 fun dec03part1() = data.split("\n")
     .map { line -> line.chunked(line.length / 2) }
     .flatMap { (first, second) -> first.toSet().intersect(second.toSet()) }
-    .map { if (it.isLowerCase()) (it - 'a' + 1) else (it - 'A' + 27) }
-    .sum()
+    .sumOf { if (it.isLowerCase()) (it - 'a' + 1) else (it - 'A' + 27) }
 
 fun dec03part2() = data.split("\n")
     .chunked(3)
     .flatMap { (first, second, third) -> first.toSet().intersect(second.toSet()).intersect(third.toSet()) }
-    .map { if (it.isLowerCase()) (it - 'a' + 1) else (it - 'A' + 27) }
-    .sum()
+    .sumOf { if (it.isLowerCase()) (it - 'a' + 1) else (it - 'A' + 27) }
 
-val data =
+private val data =
     """
         PPZTzDhJPLqPhqDTqrwQZZWbmCBMJMcsNmCBFWmMcsNb
         vplSlfdfGvfRRGsgNcMglsFWMWMC
