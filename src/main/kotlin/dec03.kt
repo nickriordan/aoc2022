@@ -1,14 +1,16 @@
-fun dec03part1() = data.split("\n")
+fun dec03part1() = lines
     .map { line -> line.chunked(line.length / 2) }
     .flatMap { (first, second) -> first.toSet().intersect(second.toSet()) }
-    .sumOf { if (it.isLowerCase()) (it - 'a' + 1) else (it - 'A' + 27) }
+    .sumOf (::scoreLetter)
 
-fun dec03part2() = data.split("\n")
+fun dec03part2() = lines
     .chunked(3)
     .flatMap { (first, second, third) -> first.toSet().intersect(second.toSet()).intersect(third.toSet()) }
-    .sumOf { if (it.isLowerCase()) (it - 'a' + 1) else (it - 'A' + 27) }
+    .sumOf (::scoreLetter)
 
-private val data =
+private fun scoreLetter(c: Char) = if (c.isLowerCase()) (c - 'a' + 1) else (c - 'A' + 27)
+
+private val lines =
     """
         PPZTzDhJPLqPhqDTqrwQZZWbmCBMJMcsNmCBFWmMcsNb
         vplSlfdfGvfRRGsgNcMglsFWMWMC
@@ -310,4 +312,4 @@ private val data =
         DLzSMtDLtzmmlDlMlMDbcrcTDqFvVvVqqTbD
         dnZshHpZRChgnszRwRZCpTqqTcwVqFcrVqcBVPqVTr
         snRRRdJsZgphCWlWtmJSjWWzjt
-    """.trimIndent()
+    """.trimIndent().split("\n")

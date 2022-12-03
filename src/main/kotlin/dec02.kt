@@ -1,4 +1,4 @@
-fun dec02part1() =
+fun dec02part1() = score(
     mapOf(
         "A X" to 4,      // R/R - draw (3 + 1)
         "B X" to 1,      // P/R - loss (0 + 1)
@@ -9,9 +9,9 @@ fun dec02part1() =
         "A Z" to 3,      // R/S - loss (0 + 3)
         "B Z" to 9,      // P/S - won (6 + 3)
         "C Z" to 6       // S/S - draw (3 + 3)
-    ).let { scoring -> data.split("\n").sumOf { scoring[it]!! } }
+    ))
 
-fun dec02part2() =
+fun dec02part2() = score(
     mapOf(
         "A X" to 3,      // R/? - must lose - rock wins against scissors (3)
         "B X" to 1,      // P/? - must lose - paper wins against rock (1)
@@ -22,9 +22,11 @@ fun dec02part2() =
         "A Z" to 8,      // R/? - must win  - paper wins against rock (2 + 6)
         "B Z" to 9,      // P/? - must win  - scissors wins against paper (3 + 6)
         "C Z" to 7       // S/? - must win  - rock wins against scissors (1 + 6)
-    ).let { scoring -> data.split("\n").sumOf { scoring[it]!! } }
+    ))
 
-private val data =
+private fun score(scoringTable: Map<String,Int>) = lines.sumOf { scoringTable[it]!! }
+
+private val lines =
     """
         C X
         C X
@@ -2526,4 +2528,4 @@ private val data =
         C Z
         C Z
         C X
-    """.trimIndent()
+    """.trimIndent().split("\n")

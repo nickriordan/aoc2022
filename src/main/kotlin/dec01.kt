@@ -1,9 +1,9 @@
 fun dec01part1() = caloriesForEachElf().max()
 fun dec01part2() = caloriesForEachElf().sorted().takeLast(3).sum()
 private fun caloriesForEachElf() =
-    data.split("\n\n").map { it.split("\n").map(String::toInt).reduce { acc, i -> acc + i } }
+    input.split("\n\n").map { it.split("\n").map(String::toInt).reduce { acc, i -> acc + i } }
 
-private val data =
+private val input =
     """
         5800
         2273
