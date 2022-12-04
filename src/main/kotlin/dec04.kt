@@ -3,8 +3,7 @@ fun dec04part1() = getRanges().count { (first, second) -> (first - second).isEmp
 fun dec04part2() = getRanges().count { (first, second) -> first.intersect(second).isNotEmpty() }
 
 private fun getRanges() = lines
-    .map { it.split(",", "-") }
-    .map { n -> IntRange(n[0].toInt(), n[1].toInt()) to IntRange(n[2].toInt(), n[3].toInt()) }
+    .map { it.split(",", "-").let { (a, b, c, d) -> a.toInt()..b.toInt() to c.toInt()..d.toInt() } }
 
 private val lines =
     """
