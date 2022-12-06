@@ -10,6 +10,7 @@ fun dec03part2() = lines
 
 private fun scoreLetter(c: Char) = if (c.isLowerCase()) (c - 'a' + 1) else (c - 'A' + 27)
 
+@Suppress("SpellCheckingInspection")
 private val lines =
     """
         PPZTzDhJPLqPhqDTqrwQZZWbmCBMJMcsNmCBFWmMcsNb

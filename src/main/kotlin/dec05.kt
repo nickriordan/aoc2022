@@ -1,21 +1,21 @@
 private data class Move(val count: Int, val from: Int, val to: Int)
 
-fun dec05part1() = parseInput(lines).let { (stacks, moves) ->
+fun dec05part1() = parseInput().let { (stacks, moves) ->
     moves.fold(stacks) { st, move ->
         st + (move.to to st[move.to]!!.plus(st[move.from]!!.takeLast(move.count).reversed())) +
                 (move.from to st[move.from]!!.dropLast(move.count))
     }.toSortedMap().values.joinToString("") { it.last() }
 }
 
-fun dec05part2() = parseInput(lines).let { (stacks, moves) ->
+fun dec05part2() = parseInput().let { (stacks, moves) ->
     moves.fold(stacks) { st, move ->
         st + (move.to to st[move.to]!!.plus(st[move.from]!!.takeLast(move.count))) +
                 (move.from to st[move.from]!!.dropLast(move.count))
     }.toSortedMap().values.joinToString("") { it.last() }
 }
 
-private fun parseInput(input: String) =
-    input.split("\n\n").let { (posInp, movesInp) ->
+private fun parseInput() =
+    lines.split("\n\n").let { (posInp, movesInp) ->
         val stacks = posInp.split("\n").dropLast(1).reversed().map { it.drop(1).windowed(1, 4) }.let { s ->
             (1..s.first().size).map { ix -> ix to s.mapNotNull { it[ix - 1].ifBlank { null } } }
         }.toMap()

@@ -1,6 +1,7 @@
 fun dec06part1() = input.windowed(4).indexOfFirst { s -> s.toSet().size == 4 } + 4
 fun dec06part2() = input.windowed(14).indexOfFirst { s -> s.toSet().size == 14 } + 14
 
+@Suppress("SpellCheckingInspection")
 private val input = "" +
         "pnnfhnhshrhmhwwmwzmznmnwmwfmfhfjfcjjtgtbggpdgdjjbjrjsjpjrrmddmgmpmddrhddnfnfzfpfvpfpprhhlffmt" +
         "ffqhhdtdcdsswsdwswmmfvvpdprrnnhhhtffnfbbznbznnvdnnbffjrfrbfrbrgbrrntnggrqqwtqwwgjgsswgwqwtwws" +
