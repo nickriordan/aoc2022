@@ -1,35 +1,26 @@
 fun dec07part1() = calculateDirectorySizes().filter { it.value <= 100000 }.values.sum()
 
-fun dec07part2(): Int {
-    val dirSizes = calculateDirectorySizes()
-    val spaceRequired = 30000000 - (70000000 - dirSizes["/"]!!)
-    return dirSizes.values.sorted().first { it >= spaceRequired }
+fun dec07part2() = calculateDirectorySizes().let { dirSizes ->
+    dirSizes.values.sorted().first { it >= 30000000 - (70000000 - dirSizes["/"]!!) }
 }
 
-private fun calculateDirectorySizes(): Map<String, Int> {
-    data class State(val cwd: String, val directories: List<String>, val fileSizes: Map<String, Int>)
+private data class State(val cwd: String, val dirs: List<String>, val fileSizes: Map<String, Int>)
 
-    val res = lines.fold(State("/", emptyList(), emptyMap())) { state, s ->
+private fun calculateDirectorySizes() =
+    lines.fold(State("/", emptyList(), emptyMap())) { st, s ->
         when {
-            s == "${'$'} ls" -> state
-            s.startsWith("dir ") -> state
-            s == "${'$'} cd /" -> state.copy(cwd = "/", directories = listOf("/"))
-            s == "${'$'} cd .." -> state.copy(cwd = state.cwd.dropLast(1).dropLastWhile { it != '/' })
-            s.startsWith("${'$'} cd") -> {
-                val dir = state.cwd + s.drop(5) + "/"
-                state.copy(cwd = dir, directories = state.directories + dir)
-            }
-
+            s == "${'$'} ls" || s.startsWith("dir ") -> st
+            s == "${'$'} cd /" -> st.copy(cwd = "/", dirs = listOf("/"))
+            s == "${'$'} cd .." -> st.copy(cwd = st.cwd.dropLast(1).dropLastWhile { it != '/' })
+            s.startsWith("${'$'} cd") -> (st.cwd + s.drop(5) + "/").let { d -> st.copy(cwd = d, dirs = st.dirs + d) }
             else -> {
                 val (size, file) = s.split(" ").let { it.first().toInt() to it.last() }
-                state.copy(fileSizes = state.fileSizes + ((state.cwd + file) to size))
+                st.copy(fileSizes = st.fileSizes + ((st.cwd + file) to size))
             }
         }
-    }
+    }.let { fst -> fst.dirs.associateWith { dir -> fst.fileSizes.filter { it.key.startsWith(dir) }.values.sum() } }
 
-    return res.directories.associateWith { d -> res.fileSizes.filter { it.key.startsWith(d) }.values.sum() }
-}
-
+@Suppress("SpellCheckingInspection")
 private val lines =
     """
         ${'$'} cd /
